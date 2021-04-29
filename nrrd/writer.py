@@ -56,7 +56,7 @@ _TYPEMAP_NUMPY2NRRD = {
     'i8': 'int64',
     'u8': 'uint64',
     'f4': 'float',
-    'f8': 'double',
+    'f8': 'float',
     'V': 'block'
 }
 
@@ -292,6 +292,7 @@ def _write_data(data, fh, header, compression_level=None, index_order='F'):
     if header['encoding'] == 'raw':
         # Convert the data into a string
         raw_data = data.tobytes(order=index_order)
+        print(raw_data.type)
 
         # Write the data in chunks (see _WRITE_CHUNKSIZE declaration for more information why)
         # Obtain the length of the data since we will be using it repeatedly, more efficient
@@ -321,6 +322,7 @@ def _write_data(data, fh, header, compression_level=None, index_order='F'):
     else:
         # Convert the data into a string
         raw_data = data.tobytes(order=index_order)
+        print(data.dtype)
 
         # Construct the compressor object based on encoding
         if header['encoding'] in ['gzip', 'gz']:
